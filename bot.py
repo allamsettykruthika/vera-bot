@@ -54,7 +54,7 @@ def compose_reply(conversation_id, merchant_id, customer_id, from_role, message,
 
 # ---------------- ENDPOINTS ---------------- #
 
-@app.get("/v1/healthz")
+@app.route("/v1/healthz", methods=["GET"])
 def healthz():
     counts = {"category": 0, "merchant": 0, "customer": 0, "trigger": 0}
     for (scope, _) in contexts:
@@ -67,7 +67,7 @@ def healthz():
     })
 
 
-@app.get("/v1/metadata")
+@app.route("/v1/metadata", methods=["GET"])
 def metadata():
     return jsonify({
         "team_name": "Vera Pro",
@@ -78,7 +78,7 @@ def metadata():
     })
 
 
-@app.post("/v1/context")
+@app.route("/v1/context", methods=["POST"])
 def push_context():
     body = request.get_json(force=True)
 
@@ -101,7 +101,7 @@ def push_context():
     })
 
 
-@app.post("/v1/tick")
+@app.route("/v1/tick", methods=["POST"])
 def tick():
     body = request.get_json(force=True)
     triggers = body.get("available_triggers", [])
@@ -145,7 +145,7 @@ def tick():
     return jsonify({"actions": actions})
 
 
-@app.post("/v1/reply")
+@app.route("/v1/reply", methods=["POST"])
 def reply():
     body = request.get_json(force=True)
 
@@ -171,7 +171,7 @@ def reply():
     return jsonify(result)
 
 
-@app.post("/v1/teardown")
+@app.route("/v1/teardown", methods=["POST"])
 def teardown():
     contexts.clear()
     conversations.clear()
