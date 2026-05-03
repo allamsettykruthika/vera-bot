@@ -52,6 +52,23 @@ def compose_reply(conversation_id, merchant_id, customer_id, from_role, message,
     }
 
 
+# ---------------- ROOT (NEW ADDED) ---------------- #
+
+@app.route("/")
+def home():
+    return {
+        "message": "Vera AI Bot is running 🚀",
+        "status": "ok",
+        "endpoints": [
+            "/v1/healthz",
+            "/v1/metadata",
+            "/v1/context",
+            "/v1/tick",
+            "/v1/reply"
+        ]
+    }
+
+
 # ---------------- ENDPOINTS ---------------- #
 
 @app.route("/v1/healthz", methods=["GET"])
