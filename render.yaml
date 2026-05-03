@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: vera-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn bot:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60
+    envVars:
+      - key: PORT
+        value: 10000
+      # Add your Anthropic API key in Render dashboard as ANTHROPIC_API_KEY
+      # The bot reads it automatically via the Anthropic SDK
